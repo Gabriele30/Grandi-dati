@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<studenti>
+    <studente>
+        <informazioni>
+            <id>100026</id>
+            <nome>Joe Average</nome>
+            <eta>21</eta>
+            <corso>Biology</corso>
+        </informazioni>
+        <record>
+            <esame>
+                <corso>Math 101</corso>
+                <voto>C-</voto>
+            </esame>
+            <esame>
+                <corso>Biology 101</corso>
+                <voto>C+</voto>
+            </esame>
+            <esame>
+                <corso>Statistics 101</corso>
+                <voto>D</voto>
+            </esame>
+        </record>
+    </studente>
+    <studente>
+        <informazioni>
+            <id>100027</id>
+            <nome>Jane Doe</nome>
+            <eta>22</eta>
+            <corso>Physics</corso>
+        </informazioni>
+        <record>
+            <esame>
+                <corso>Physics 101</corso>
+                <voto>B+</voto>
+            </esame>
+            <esame>
+                <corso>Math 101</corso>
+                <voto>A</voto>
+            </esame>
+            <esame>
+                <corso>Computer Science 101</corso>
+                <voto>B</voto>
+            </esame>
+        </record>
+    </studente>
+    <studente>
+        <informazioni>
+            <id>100028</id>
+            <nome>John Smith</nome>
+            <eta>23</eta>
+            <corso>Chemistry</corso>
+        </informazioni>
+        <record>
+            <esame>
+                <corso>Chemistry 101</corso>
+                <voto>A-</voto>
+            </esame>
+            <esame>
+                <corso>Biology 101</corso>
+                <voto>B+</voto>
+            </esame>
+            <esame>
+                <corso>Math 101</corso>
+                <voto>C</voto>
+            </esame>
+        </record>
+    </studente>
+</studenti>

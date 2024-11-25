@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .header{
+      background-color: gray;
+    }
+    th,td{
+      border: 1px solid;
+    }
+    #tab{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.5); /* Sfondo semi-trasparente */
+    }
+
+    /* Contenuto della modale */
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 50%;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    /* Bottone di chiusura */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: red;
+      text-decoration: none;
+    }
+  </style>
+  <script>
+    $(document).ready(function(){
+      $.get("studenti.xml", function (data, status) {
+        if (status === "success") {
+
+          var studenti = data.getElementsByTagName("studente");
+
+
+          var out = "<table>" +
+                  "    <thead>" +
+                  "        <tr>" +
+                  "            <th colspan=\"4\" class=\"header\">Colonna 1</th>" +
+                  "        </tr>" +
+                  "    </thead>" +
+                  "    <tbody>" +
+                  "        <tr>" +
+                  "            <td>Id</td>" +
+                  "            <td>Name</td>" +
+                  "            <td>Age</td>" +
+                  "            <td>Major</td>" +
+                  "        </tr>"
+
+
+          for (var i = 0; i < studenti.length; i++) {
+
+
+            out +=
+                    "        <tr>" +
+                    "            <td>" + studenti[i].getElementsByTagName("id")[0].textContent + "</td>" +
+                    "            <td>" + studenti[i].getElementsByTagName("nome")[0].textContent + "</td>" +
+                    "            <td>" + studenti[i].getElementsByTagName("eta")[0].textContent + "</td>" +
+                    "            <td>" + studenti[i].getElementsByTagName("corso")[0].textContent + "</td>" +
+                    "            <td><button onclick='aprimodale(\"" + studenti[i].getElementsByTagName("id")[0].textContent + "\")'>Mostra dettagli</button></td>" +
+            "        </tr>"
+
+
+
+
+          }
+          out+="</tbody>" +
+                  "</table>"
+          document.getElementById('tab').innerHTML = out;
+
+        }
+      });
+    });
+    function aprimodale(id){
+      $.get("studenti.xml", function (data, status) {
+        if (status === "success") {
+
+          var studenti = data.getElementsByTagName("studente");
+
+
+          for (var i = 0; i < studenti.length; i++) {
+            if(studenti[i].getElementsByTagName("id")[0].textContent==id){
+              $("#myModal").fadeIn();
+              var esami=studenti[i].getElementsByTagName("record")
+              for (var j = 0; j < esami.length; j++) {
+                var esame = esami[j].getElementsByTagName("esame");
+                for (var k = 0; k < esame.length; k++) {
+                  $("#modal-content").append("<p>" + esame[k].getElementsByTagName("corso")[0].textContent + "</p>");
+                  $("#modal-content").append("<p>" + esame[k].getElementsByTagName("voto")[0].textContent + "</p>");
+
+
+                }
+              }
+            }
+
+
+
+
+          }
+
+        }
+      });
+    }
+    $(document).ready(function (){
+      $("#close").click(function (){
+        $("#myModal").fadeOut();
+      })
+    })
+
+
+
+  </script>
+</head>
+<body>
+<div id="tab">
+
+</div>
+
+<div id="myModal" class="modal">
+  <div id="modal-content" class="modal-content">
+    <span id="close" class="close">&times;</span>
+  </div>
+</div>
+
+
+</body>
+</html>

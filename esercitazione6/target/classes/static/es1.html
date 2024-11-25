@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .header{
+            background-color: gray;
+        }
+        table,th,td{
+            border: 1px solid;
+        }
+        #tab{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $.get("studenti.xml", function (data, status) {
+                if (status === "success") {
+
+                    var studenti = data.getElementsByTagName("studente");
+
+
+                    var out = "";
+
+
+                    for (var i = 0; i < studenti.length; i++) {
+
+
+                        out += "<table>" +
+                            "    <thead>" +
+                            "        <tr>" +
+                            "            <th colspan=\"4\" class=\"header\">Colonna 1</th>" +
+                            "        </tr>" +
+                            "    </thead>" +
+                            "    <tbody>" +
+                            "        <tr>" +
+                            "            <td>Id</td>" +
+                            "            <td>Name</td>" +
+                            "            <td>Age</td>" +
+                            "            <td>Major</td>" +
+                            "        </tr>" +
+                            "        <tr>" +
+                            "            <td>" + studenti[i].getElementsByTagName("id")[0].textContent + "</td>" +
+                            "            <td>" + studenti[i].getElementsByTagName("nome")[0].textContent + "</td>" +
+                            "            <td>" + studenti[i].getElementsByTagName("eta")[0].textContent + "</td>" +
+                            "            <td>" + studenti[i].getElementsByTagName("corso")[0].textContent + "</td>" +
+                            "        </tr>" +
+                            "        <tr>" +
+                            "            <th colspan=\"4\" class=\"header\">Student Record</th>" +
+                            "        </tr>" +
+                            "        <tr>" +
+                            "            <td colspan=\"2\">Course</td>" +
+                            "            <td colspan=\"2\">Grade</td>" +
+                            "        </tr>"
+
+                        var esami=studenti[i].getElementsByTagName("record")
+                        for (var j = 0; j < esami.length; j++) {
+                            var esame = esami[j].getElementsByTagName("esame");
+                            for (var k = 0; k < esame.length; k++) {
+                                out += "        <tr>" +
+                                    "            <td colspan=\"2\">" + esame[k].getElementsByTagName("corso")[0].textContent + "</td>" +
+                                    "            <td colspan=\"2\">" + esame[k].getElementsByTagName("voto")[0].textContent + "</td>" +
+                                    "        </tr>";
+                            }
+                        }
+                        out+="</tbody>" +
+                            "</table>"
+
+                    }
+                    document.getElementById('tab').innerHTML = out;
+
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div id="tab">
+
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Form di Registrazione</title>
+    <script>
+        $(document).ready(function (){
+            $("button").click(function (){
+                $.post("/verificaesistenza",{
+                    email: $("#email").val(),
+                    nome: $("#nome").val(),
+                    cognome: $("#cognome").val()
+                },function (data,status){
+                    if(status=="success"){
+                        obj=JSON.parse(data);
+                        $("#result").text(obj.codreg);
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<h1>Registrazione</h1>
+<div>
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="cognome">Cognome:</label><br>
+    <input type="text" id="cognome" name="cognome" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <button type="submit">Registrati</button>
+</div>
+<p id="result"></p>
+</body>
+</html>
